@@ -1,25 +1,39 @@
 import { throttle } from 'lodash';
 
 const form = document.querySelector('feedback-form');
-const input = document.querySelector('input');
+const emailInput = document.querySelector('input');
 const text = document.querySelector('textarea')
 
 
-// form.addEventListener('email', throttle((e) => {
-//     localStorage.setItem('email:form.elements.email.value, message value);
-// }, 500));
+ form.addEventListener('input', throttle((e) => {
+  const formData = {email: form.elements.email.value, message: form.elements.message.value}
+    localStorage.setItem("feedback-form-state", JSON.stringify(formData))
+ }, 500));
 
-function persistInput(input)
-{
-  var key = "input" + input.id;
+//  const actualText = localStorage.getItem('email:form.elements.email.value, message: form.elements.message.value')
 
-  var storedValue = localStorage.getItem(key);
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const {
+    elements: { email, message }}  = e.currentTarget;
+  console.log({email: email.value, message: message.value})
+  
+  
+  e.currentTarget.reset();
+  localStorage.clear();
 
-  if (storedValue)
-      input.value = storedValue;
+  } )
+  
+  
 
-  input.addEventListener('input', function ()
-  {
-      localStorage.setItem(key, input.value);
-  });
+
+
+let storageText = localStorage.getItem("feedback-form-state")
+let parseStorageText = JSON.parse(storageText)
+const rememberedText = () => {
+  if (parseStorageText !== null) {
+    emailInput.value = parseStorageText.email;
+    text.value = parseStorageText.message;
+  }
 }
+rememberedText()
