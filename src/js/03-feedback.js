@@ -1,6 +1,6 @@
 import { throttle } from 'lodash';
 
-const form = document.querySelector('feedback-form');
+const form = document.querySelector('form');
 const emailInput = document.querySelector('input');
 const text = document.querySelector('textarea')
 
@@ -31,7 +31,7 @@ form.addEventListener('submit', (e) => {
 let storageText = localStorage.getItem("feedback-form-state")
 let parseStorageText = JSON.parse(storageText)
 const rememberedText = () => {
-  if (parseStorageText !== null) {
+  if (parseStorageText !== "") {
     emailInput.value = parseStorageText.email;
     text.value = parseStorageText.message;
   }
