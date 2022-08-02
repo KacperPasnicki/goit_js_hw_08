@@ -25,9 +25,6 @@ form.addEventListener('submit', (e) => {
   } )
   
   
-
-
-
 let storageText = localStorage.getItem("feedback-form-state")
 let parseStorageText = JSON.parse(storageText)
 const rememberedText = () => {
